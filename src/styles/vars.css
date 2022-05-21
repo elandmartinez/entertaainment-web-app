@@ -1,0 +1,8 @@
+:root {
+    --red: #FC4747; /* form error color */
+    --transparent-red: rgba(252, 71, 71, 0.7);
+    --black: #10141E; /* whole app background color */
+    --gray: #161D2F; /* side bar background color */
+    --grayish-blue: #5A698F; /* icon non-active color*/
+    --white: #FFFFFF; /* icon active color and many other things*/
+}

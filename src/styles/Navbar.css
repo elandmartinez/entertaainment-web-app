@@ -1,0 +1,76 @@
+@import "./vars.css";
+
+.nav-bar {
+    width: 100vw;
+    height: 55px;
+    padding: 0 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--gray);
+}
+
+.nav__logo {
+    width: 33px;
+    height: 23px;
+    border-radius: 0 0 2px 5px;
+}
+
+.nav__sections {
+    width: 60%;
+    max-width: 220px;
+    height: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.nav__sections a {
+    position: relative;
+}
+
+.nav__user-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--white);
+}
+.icon-section-selected  * {
+    fill: white;
+}
+
+.nav__sections a:hover  * {
+    fill: var(--red);
+}
+
+
+.icon-section-selected:hover .icon-section-selected * {
+    fill: yellow;
+    width: 10000px;
+}
+
+@media(min-width: 600px) {
+    .nav-bar {
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+
+@media(min-width: 900px) {
+    .nav-bar {
+        width: 65px;
+        height: 90vh;
+        padding: 20px 10px;
+        margin-right: 20px;
+        flex-direction: column;
+    }
+    .nav__sections {
+        height: 250px;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        top: -150px;
+    }
+}

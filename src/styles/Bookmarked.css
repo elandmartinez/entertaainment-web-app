@@ -1,0 +1,12 @@
+.bookmarked-section {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.bookmarked-catalogue {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}

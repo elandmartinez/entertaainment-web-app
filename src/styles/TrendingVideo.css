@@ -1,0 +1,119 @@
+@import "./vars.css";
+
+.trending-video {
+    min-width: 240px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-items: flex-start;
+    justify-content: end;
+    margin: 5px 15px 5px 5px;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+    background-size: cover;
+}
+
+.trending-video * {
+    z-index: 2;
+}
+
+.trending-video li::marker {
+    color: rgba(170, 170 , 170, 0.8);
+}
+
+.trending-video__info {
+    display: flex;
+    font-weight: 100;
+    color: rgba(250, 250, 250, 0.9);
+}
+
+/* .trending-video:active .trending-video__info{
+    display: none;
+}
+ */
+.trending-video__year {
+    margin-right: 10px;
+}
+
+.trending-video__specs {
+    display: flex;
+}
+
+.trending-video__spec {
+    margin: 0 10px;
+}
+
+/* .trending-video:active .trending-video__title {
+    display: none;
+} */
+
+.trending-video__category-icon {
+    margin-right: 5px;
+}
+
+.trending-video__overlay {
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.9));
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.trending-video:active .trending-video__overlay {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.trending-video__play-cont {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 5px 15px 5px 7px;
+    color: white;
+    text-decoration: none;
+}
+
+.trending-video__play-icon {
+    margin-right: 10px;
+}
+
+.trending-video__play-cont p {
+    font-size: 14px;
+}
+
+@media(min-width: 1000px) {
+    .trending-video__play-cont {
+        width: 89px;
+        height: 40px;
+        left: 35%;
+        top: 35%;
+    }
+    .trending-video:hover .trending-video__info {
+        display: none;
+    }
+    .trending-video:hover .trending-video__title {
+        display: none;
+    }
+    .trending-video:hover .trending-video__play-cont {
+        opacity: 1;
+    }
+    .trending-video:hover .trending-video__overlay {
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+    }
+    .trending-video__play-cont:hover {
+        background-color: rgba(50, 50, 50, 0.8);
+    }
+}

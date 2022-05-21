@@ -1,0 +1,8 @@
+@import "./vars.css";
+
+.searching-results {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
