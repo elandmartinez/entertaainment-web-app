@@ -32,12 +32,12 @@
     font-weight: 200;
 }
 
-.login__form__input-cont {
+.login__input-cont {
     margin-bottom: 5px;
     position: relative;
 }
 
-.login__form__input {
+.login__input {
     width: 100%;
     height: 40px;
     color: white;
@@ -50,22 +50,22 @@
     border-bottom: 1px solid var(--grayish-blue);
 }
 
-.login__form__input:focus {
+.login__input:focus {
     outline: none;
 }
 
-.login__form__input:focus .login__form__input-cont{
+.login__input:focus .login__form__input-cont{
     border-bottom: 1px solid blue;
 }
 
-.login__form__input__error {
+.login__input-error {
     position: absolute;
     bottom: -15px;
     margin-left: 5px;
     color: var(--red);
 }
 
-.login__form__submit-button {
+.login__submit-button {
     background-color: var(--red);
     min-height: 40px;
     color: white;
@@ -74,17 +74,17 @@
     margin-top: 30px;
 }
 
-.login__form__submit-button:hover {
+.login__submit-button:hover {
     background-color: white;
     color: black;
     box-shadow: 1px 1px 5px white;
 }
 
-.login__form__submit-button:active {
+.login__submit-button:active {
     box-shadow: 0 0 0 white;
 }
 
-.login__form__alt-option {
+.login__alt-option {
     display: flex;
     justify-content: center;
     margin: 20px 0 10px 0;

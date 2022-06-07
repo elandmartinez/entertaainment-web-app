@@ -1,8 +1,8 @@
 import Icon from "../components/Icon/index.js";
 import LoginError from "../components/LoginError/index.js";
 import { useEffect } from "react";
-import { oldSessionAlreadyExist } from "../utils/helpers.js";
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { userHasAccount } from "../utils/helpers.js";
+import { Formik, Field, ErrorMessage } from 'formik';
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import {loginInputNames, loginInputsInitialValues} from "../utils/constants.js";
@@ -10,33 +10,29 @@ import { loginSchema } from "../utils/formSchema.js";
 import { useAppProvider } from "../context/AppContext.js";
 
 const Login  = () => {
-    const { showLoginErrorMsg, setShowLoginErrorMsg, setShowSignUpErrorMsg, saveLogged } = useAppProvider();
+    const { showLoginErrorMsg, setShowLoginErrorMsg, updateIsAUserLogged } = useAppProvider();
     const navigateTo = useNavigate();
 
     useEffect(() => {
         setShowLoginErrorMsg({ show: false, msg: ""});
-        setShowSignUpErrorMsg({ show: false, existingPart: ""});
-    }, [setShowSignUpErrorMsg, setShowLoginErrorMsg]);
+    }, [setShowLoginErrorMsg]);
 
     return (
         <div className="login">
-            <Icon iconName="logoIcon" iconClassName="login__logo" />
+            <Icon name="logo" iconClassName="login__logo" />
             <Formik
                 initialValues={loginInputsInitialValues}
                 validationSchema={loginSchema}
                 onSubmit={(loginInfo, actions) => {
-                    console.log({ loginInfo })
-                    let matchedExistingSession = oldSessionAlreadyExist(loginInfo);
-                    if(matchedExistingSession.error) {
-                        console.log("failure");
+                    let userHasAnAccount = userHasAccount(loginInfo);
+                    if(userHasAnAccount.error) {
                         setShowLoginErrorMsg({
                             show: true,
-                            msg: matchedExistingSession.errorMsg,
+                            msg: userHasAnAccount.errorMsg,
                         })
                         actions.setSubmitting(false);
                     } else {
-                        console.log("success");
-                        saveLogged(true);
+                        updateIsAUserLogged(true);
                         navigateTo("/");
                     }
                 }}
@@ -45,32 +41,32 @@ const Login  = () => {
                     <form className="login__form" onSubmit={handleSubmit}>
                         { showLoginErrorMsg.show ? <LoginError errorMsg={showLoginErrorMsg.msg} /> : null }
                         <h1>Log In</h1>
-                        <div className="login__form__input-cont">
+                        <div className="login__input-cont">
                             <Field
                                 type="email"
                                 name={loginInputNames.email}
-                                className="login__form__input"
+                                className="login__input"
                                 placeholder="Email"
                             />
-                            <ErrorMessage name="email" component="div" className="login__form__input__error" />
+                            <ErrorMessage name="email" component="div" className="login__input-error" />
                         </div>
-                        <div className="login__form__input-cont">
+                        <div className="login__input-cont">
                             <Field
                                 type="password"
                                 name={loginInputNames.password}
-                                className="login__form__input"
+                                className="login__input"
                                 placeholder="Password"
                             />
-                            <ErrorMessage name="password" component="div" className="login__form__input__error" />
+                            <ErrorMessage name="password" component="div" className="login__input-error" />
                         </div>
                         <button
                             type="submit"
-                            className="login__form__submit-button"
+                            className="login__submit-button"
                             disabled={isSubmitting}
                         >
                             Log In to your account
                         </button>
-                        <div className="login__form__alt-option">
+                        <div className="login__alt-option">
                             <p>Don't have an account?</p>
                             <Link to="/signup" className="sign-up-link">Sign up</Link>
                         </div>

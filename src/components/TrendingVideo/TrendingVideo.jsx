@@ -1,25 +1,26 @@
 import "../../styles/TrendingVideo.css";
 import Icon from "../Icon/index.js";
-import BookmarkIcon from "../BookmarkIcon/index.js";
+import { useAppProvider } from "../../context/AppContext";
 
 const TrendingVideo = ({ videoData }) => {
-    const handleThumbnailClick = (e) => {
-        return
+    const { toggleBookmark } = useAppProvider();
+    const handleBookmarkClick = (e) => {
+        toggleBookmark(videoData)
     }
 
     return (
-        <div
+        <article
             className="trending-video"
             style={{backgroundImage: `url(${videoData.thumbnail.trending.small})`}}
-            onClick={handleThumbnailClick}
+            key={videoData.id}
         >
             <div className="trending-video__info">
-                <p className="trending-video__year" >{videoData.year}</p>
+                <p className="trending-video__year">{videoData.year}</p>
                 <ul className="trending-video__specs">
-                    <li className="trending-video__spec" >
+                    <li className="trending-video__spec">
                         <Icon
-                            iconName={false ? "tVCategoryIcon" : "movieCategoryIcon" }
-                            iconClassName="trending-video__category-icon"
+                            name={false ? "tVCategoryIcon" : "movieCategoryIcon" }
+                            className="trending-video__category-icon"
                         />
                         {videoData.category}
                     </li>
@@ -28,7 +29,15 @@ const TrendingVideo = ({ videoData }) => {
                     </li>
                 </ul>
             </div>
-            <BookmarkIcon alreadyBookmarked={videoData.isBookmarked} videoData={videoData} />
+            <div
+                className="video__bookmark-icon-cont"
+                onClick={handleBookmarkClick}
+            >
+                <Icon
+                    name={videoData.isBookmarked ? "fullBookmarkIcon" : "emptyBookmarkIcon"}
+                    className="video__bookmark-icon"
+                />
+            </div>
             <p className="trending-video__title" >{videoData.title}</p>
             <div className="trending-video__overlay"></div>
             <a
@@ -37,10 +46,10 @@ const TrendingVideo = ({ videoData }) => {
                 rel="noreferrer"
                 className="trending-video__play-cont"
             >
-                <Icon iconName="playIcon" iconClassName="trending-video__play-icon" />
+                <Icon name="playIcon" className="trending-video__play-icon" />
                 <p>Play</p>
             </a>
-        </div>
+        </article>
     )
 }
 

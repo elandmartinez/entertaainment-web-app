@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+
 import beyondEarthTrendingSmallImg from "../assets/thumbnails/beyond-earth/trending/small.jpg"
 import beyondEarthTrendingLargeImg from "../assets/thumbnails/beyond-earth/trending/large.jpg"
 import beyondEarthRegularSmallImg from "../assets/thumbnails/beyond-earth/regular/small.jpg"
@@ -218,7 +219,7 @@ const data = [
       "year": 2018,
       "category": "TV Series",
       "rating": "PG",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": true
     },
     {
@@ -263,7 +264,7 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "18+",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -353,7 +354,7 @@ const data = [
       "year": 2015,
       "category": "TV Series",
       "rating": "E",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -368,7 +369,7 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "PG",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -413,7 +414,7 @@ const data = [
       "year": 2021,
       "category": "Movie",
       "rating": "PG",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -428,7 +429,7 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "18+",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -473,7 +474,7 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "E",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -503,7 +504,7 @@ const data = [
       "year": 2016,
       "category": "TV Series",
       "rating": "E",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -548,7 +549,7 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "18+",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     },
     {
@@ -578,39 +579,36 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "PG",
-      "isBookmarked": true,
+      "isBookmarked": false,
       "isTrending": false
     }
 ]
 let storageBookmarkedVideos = JSON.parse(localStorage.getItem("bookmarked-videos"));
-let videosData = data.map((video, index) => {
-  let videoId = uuidv4();
-  return {
-    ...video,
-    id: videoId,
-    index: index,
-  }
-});
 
-/* The above code is using the map method to iterate over the videosData array. For each video in the
-array, it is checking to see if the video is bookmarked. If it is, it is setting the isBookmarked
-property to true. If it is not, it is setting the isBookmarked property to false. */
-export const finalData = videosData.map((video, index) => {
-  let bookmarkedVideo;
-  if(storageBookmarkedVideos) {
-    bookmarkedVideo = storageBookmarkedVideos.find(storageVideo => {
-      return storageVideo.index === video.index
+
+export const initialData = data
+    .map((video, index) => {
+      let videoId = uuidv4();
+      return {
+        ...video,
+        index: index,
+        id: videoId
+      }
     })
-  }
+    .map((video) => {
+    let bookmarkedVideo;
+    let newBookmarkedValue;
 
-  let newBookmarkedValue;
-  if(bookmarkedVideo) {
-    newBookmarkedValue = bookmarkedVideo.isBookmarked
-  } else {
-    newBookmarkedValue = video.isBookmarked
-  }
-  return {
-    ...video,
-    isBookmarked: newBookmarkedValue,
-  }
-});
+    if(storageBookmarkedVideos) {
+      bookmarkedVideo = storageBookmarkedVideos.find(storageVideo => {
+        return storageVideo.index === video.index
+      })
+    }
+    if(bookmarkedVideo) {
+      newBookmarkedValue = true
+    }
+    return {
+      ...video,
+      isBookmarked: newBookmarkedValue,
+    }
+  })

@@ -8,9 +8,9 @@ import NavTVSeriesIcon from "../../assets/Icons/NavTVSeriesIcon";
 import PlayIcon from "../../assets/Icons/PlayIcon";
 import SearchIcon from "../../assets/Icons/SearchIcon";
 import TVCategoryIcon from "../../assets/Icons/TVCategoryIcon";
-import LogoIcon from "../../assets/Icons/LogoIcon.jsx";
+import Logo from "../../assets/Icons/Logo";
 
-const possibleIcons = {
+const icons = {
     emptyBookmarkIcon: EmptyBookmarkIcon,
     fullBookmarkIcon: FullBookmarkIcon,
     movieCategoryIcon: MovieCategoryIcon,
@@ -21,18 +21,18 @@ const possibleIcons = {
     playIcon: PlayIcon,
     searchIcon: SearchIcon,
     tVCategoryIcon: TVCategoryIcon,
-    logoIcon: LogoIcon,
+    logo: Logo,
 }
 
-const Icon = ({ iconName, iconClassName }) => {
-    const IconToLoad = possibleIcons[iconName];
+const Icon = ({ name, className }) => {
+    const IconToLoad = icons[name];
     if(!IconToLoad) {
-        console.log(iconName);
-        throw new Error(`you wrote a non-existing icon, the ones available are: ${possibleIcons}`)
+        console.log(name);
+        throw new Error(`you wrote a non-existing icon, the ones available are: ${icons}`)
     }
 
     return (
-        <IconToLoad className={iconClassName} />
+        <IconToLoad className={className} />
     )
 }
 
