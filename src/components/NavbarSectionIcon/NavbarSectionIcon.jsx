@@ -1,28 +1,16 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Icon from "../Icon/index.js";
-import {useAppProvider} from "../../context/AppContext";
 
-const NavbarSectionIcon = ({ sectionName, iconName }) => {
-    const [params, setParams] = useSearchParams();
-    const {sectionSelected, setSectionSelected, updateIsSearchingVideo} = useAppProvider();
-    const iconIsSelected = sectionSelected === sectionName;
-    const handleIconClick = (e) => {
-        updateIsSearchingVideo(false);
-        console.log("hello");
-        setSectionSelected(sectionName);
-    }
-
+const NavbarSectionIcon = ({ sectionName, name }) => {
 
     return (
-        <div
-            onClick={handleIconClick}
-        >
-            <Link to={sectionName}>
-                <Icon
-                    iconName={iconName}
-                    iconClassName={iconIsSelected ? "icon-section-selected" : ""}
-                />
-            </Link>
+        <div>
+            <NavLink
+                to={sectionName}
+                className={({isActive}) => isActive ? "icon-section-selected" : ""}
+            >
+                <Icon name={name}/>
+            </NavLink>
         </div>
     )
 }

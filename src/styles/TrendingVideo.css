@@ -19,6 +19,33 @@
     z-index: 2;
 }
 
+.video__bookmark-icon-cont {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 6;
+}
+
+.video__bookmark-icon-cont:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.video__bookmark-icon-cont:active {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.video__bookmark-icon-cont:active .video__bookmark-icon * {
+    stroke: white;
+    fill: white;
+}
+
 .trending-video li::marker {
     color: rgba(170, 170 , 170, 0.8);
 }

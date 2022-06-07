@@ -1,34 +1,34 @@
 import "../styles/InitialPage.css";
 import Navbar from "../components/Navbar/index.js";
-import VideoSeeker from "../components/VideoSeeker/index.js";
+import VideoSearcher from "../components/VideoSearcher/index.js";
 import { Outlet, useLocation } from "react-router-dom";
 import { useAppProvider } from "../context/AppContext";
 
-const InitialPage = () => {
-    const { moviesAndSeries } = useAppProvider();
+const Layout = () => {
+    const { videos } = useAppProvider();
     const location = useLocation();
-    let sectionToSeek;
+    let videoSearcherPlaceHolder = "Search for ";
     let catalogToSearchIn;
     switch(location.pathname) {
         case "/":
-            sectionToSeek = "movies or TV Series"
-            catalogToSearchIn = moviesAndSeries;
+            videoSearcherPlaceHolder += "movies or TV Series"
+            catalogToSearchIn = videos;
             break
         case "/movies":
-            sectionToSeek = "movies"
-            catalogToSearchIn = moviesAndSeries.filter(video => {
+            videoSearcherPlaceHolder += "movies"
+            catalogToSearchIn = videos.filter(video => {
                 return video.category === "Movie"
             })
             break
         case "/series":
-            sectionToSeek = "TV Series"
-            catalogToSearchIn = moviesAndSeries.filter(video => {
+            videoSearcherPlaceHolder += "TV Series"
+            catalogToSearchIn = videos.filter(video => {
                 return video.category === "TV Series"
             })
             break
         case "/bookmarked":
-            sectionToSeek = "bookmarked shows"
-            catalogToSearchIn = moviesAndSeries.filter(video => {
+            videoSearcherPlaceHolder += "bookmarked shows"
+            catalogToSearchIn = videos.filter(video => {
                 return video.isBookmarked === true
             })
             break
@@ -40,11 +40,11 @@ const InitialPage = () => {
         <div className="initial-page">
             <Navbar />
             <div className="main-section">
-                <VideoSeeker inSection={sectionToSeek} />
+                <VideoSearcher inSection={videoSearcherPlaceHolder} />
                 <Outlet context={catalogToSearchIn} />
             </div>
         </div>
     )
 }
 
-export default InitialPage;
+export default Layout;

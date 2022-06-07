@@ -1,4 +1,4 @@
-export const oldSessionAlreadyExist = (sessionToSearch) => {
+export const userHasAccount = (sessionToSearch) => {
     let storageSessions = JSON.parse(localStorage.getItem("sessions")) || [];
     let sessionExist = storageSessions.some((session) => {
         return session.email === sessionToSearch.email && session.password === sessionToSearch.password
@@ -7,7 +7,7 @@ export const oldSessionAlreadyExist = (sessionToSearch) => {
     return {error: true, errorMsg: "Oops! an account with this parameters doesn't exist"}
 }
 
-export const newSessionAlreadyExist = (sessionToSearch) => {
+export const isANewAccount = (sessionToSearch) => {
     let storageSessions = JSON.parse(localStorage.getItem("sessions")) || [];
     const emailFailureCase = { existingPart: "email" };
     const passwordFailureCase = { existingPart:"password" };

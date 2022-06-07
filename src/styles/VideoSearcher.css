@@ -1,7 +1,7 @@
 @import "./vars.css";
 
 
-.seeker-cont {
+.searcher-cont {
     width: 100%;
     height: 45px;
     display: flex;
@@ -10,11 +10,11 @@
     margin: 20px 0;
 }
 
-.seeker-icon {
+.searcher-icon {
     margin-right: 5px;
 }
 
-.seeker-input {
+.searcher-input {
     width: 90%;
     height: 100%;
     background-color: var(--black);
@@ -27,7 +27,7 @@
     font-weight: 100;
 }
 
-.seeker-input:focus {
+.searcher-input:focus {
     outline-style: none;
     border-bottom: 1px solid  var(--grayish-blue);
 }
