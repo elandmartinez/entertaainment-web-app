@@ -33,12 +33,12 @@
 }
 
 
-.sign-up__form__input-cont {
+.sign-up__input-cont {
     margin-bottom: 15px;
     position: relative;
 }
 
-.sign-up__form__input {
+.sign-up__input {
     width: 100%;
     height: 40px;
     color: white;
@@ -50,22 +50,22 @@
     border-bottom: 1px solid var(--grayish-blue);
 }
 
-.sign-up__form__input:focus {
+.sign-up__input:focus {
     outline: none;
 }
 
-.sign-up__form__input:focus .sign-up__form__input-cont{
+.sign-up__input:focus .sign-up__input-cont{
     border-bottom: 1px solid blue;
 }
 
-.sign-up__form__input__error {
+.sign-up__input-error {
     position: absolute;
     bottom: -22px;
     margin-left: 5px;
     color: var(--red);
 }
 
-.sign-up__form__submit-button {
+.sign-up__submit-button {
     background-color: var(--red);
     min-height: 40px;
     color: white;
@@ -74,7 +74,7 @@
     margin-top: 15px;
 }
 
-.sign-up__form__alt-option {
+.sign-up__alt-option {
     display: flex;
     justify-content: center;
     margin: 10px 0 0px 0;

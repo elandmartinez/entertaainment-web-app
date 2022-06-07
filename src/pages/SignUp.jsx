@@ -3,7 +3,7 @@ import Icon from "../components/Icon/index.js";
 import SignUpError from "../components/SignUpError/index.js";
 import PasswordNotRepeated from "../components/PasswordNotRepeated/index.js";
 import { useEffect } from "react";
-import { newSessionAlreadyExist } from "../utils/helpers";
+import { isANewAccount } from "../utils/helpers";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Link, useNavigate } from "react-router-dom";
 import {signUpInputNames, signUpInputsInitialValues } from "../utils/constants.js";
@@ -15,32 +15,30 @@ const SignUp = () => {
         updateSessions,
         showSignUpErrorMsg,
         setShowSignUpErrorMsg,
-        setShowLoginErrorMsg,
         passwordNotRepeatedError,
         setPasswordNotRepeatedError,
         saveLogged,
     }  = useAppProvider();
     const navigateTo = useNavigate();
     useEffect(() => {
-        setShowLoginErrorMsg({ show: false, msg: ""});
         setShowSignUpErrorMsg({ show: false, existingPart: ""});
-    }, [setShowSignUpErrorMsg, setShowLoginErrorMsg]);
+    }, [setShowSignUpErrorMsg]);
 
     return (
         <div className="sign-up">
-            <Icon iconName="logoIcon" iconClassName="sign-up__logo" />
+            <Icon name="logo" iconClassName="sign-up__logo" />
             <Formik
                 initialValues={signUpInputsInitialValues}
                 validationSchema={signUpSchema}
                 onSubmit={(signInInfo) => {
                     let passwordRepeatedCorrectly = signInInfo.password === signInInfo.repeatPassword;
                     if(passwordRepeatedCorrectly) {
-                        let matchedExistingSession = newSessionAlreadyExist(signInInfo);
-                        if(matchedExistingSession.error) {
+                        let isANewUser = isANewAccount(signInInfo);
+                        if(isANewUser.error) {
                             console.log("failure");
                             setShowSignUpErrorMsg({
                                 show: true,
-                                invalidParameter: `${matchedExistingSession.invalidParameter}`,
+                                invalidParameter: `${isANewUser.invalidParameter}`,
                             })
                         } else {
                             let newSession = {
@@ -64,41 +62,41 @@ const SignUp = () => {
                         { showSignUpErrorMsg.show ? <SignUpError invalidParameter={showSignUpErrorMsg.invalidParameter} /> : null }
                         { passwordNotRepeatedError ?  <PasswordNotRepeated /> : null}
                         <h1>Sign Up</h1>
-                        <div className="sign-up__form__input-cont" >
+                        <div className="sign-up__input-cont" >
                             <Field
                                 type="email"
                                 name={signUpInputNames.email}
-                                className="sign-up__form__input"
+                                className="sign-up__input"
                                 placeholder="Email"
                             />
-                            <ErrorMessage name="email" component="div" className="sign-up__form__input__error" />
+                            <ErrorMessage name="email" component="div" className="sign-up__input_error" />
                         </div>
-                        <div className="sign-up__form__input-cont" >
+                        <div className="sign-up__input-cont" >
                             <Field
                                 type="password"
                                 name={signUpInputNames.password}
-                                className="sign-up__form__input"
+                                className="sign-up__input"
                                 placeholder="Password"
                             />
-                            <ErrorMessage name="password" component="div" className="sign-up__form__input__error" />
+                            <ErrorMessage name="password" component="div" className="sign-up__input_error" />
                         </div>
-                        <div className="sign-up__form__input-cont" >
+                        <div className="sign-up__input-cont" >
                             <Field
                                 type="password"
                                 name={signUpInputNames.repeatPassword}
-                                className="sign-up__form__input"
+                                className="sign-up__input"
                                 placeholder="Repeat Password"
                             />
-                            <ErrorMessage name="repeatPassword" component="div" className="sign-up__form__input__error" />
+                            <ErrorMessage name="repeatPassword" component="div" className="sign-up__input_error" />
                         </div>
                         <button
                             type="submit"
-                            className="sign-up__form__submit-button"
+                            className="sign-up__submit-button"
                             disabled={isSubmitting}
                         >
                             Create a new account
                         </button>
-                        <div className="sign-up__form__alt-option">
+                        <div className="sign-up__alt-option">
                             <p>Already have an account?</p>
                             <Link to="/login" className="login-link" >Log In</Link>
                         </div>

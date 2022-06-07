@@ -6,6 +6,9 @@
     padding: 0;
 }
 
+html {
+    background-color: var(--black);
+}
 
 .app {
     color: var(--white);

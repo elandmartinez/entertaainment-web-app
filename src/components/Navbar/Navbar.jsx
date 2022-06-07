@@ -7,19 +7,19 @@ const Sidebar = () => {
 
     return (
         <aside className="nav-bar">
-            <Icon iconName="logoIcon" iconClassName="nav__logo" />
+            <Icon name="logo" className="nav__logo" />
             <ul className="nav__sections">
                 <li>
-                    <NavbarSectionIcon sectionName="/" iconName="navHomeIcon" />
+                    <NavbarSectionIcon sectionName="/" name="navHomeIcon" />
                 </li>
                 <li>
-                    <NavbarSectionIcon sectionName="movies" iconName="navMoviesIcon" />
+                    <NavbarSectionIcon sectionName="movies" name="navMoviesIcon" />
                 </li>
                 <li>
-                    <NavbarSectionIcon sectionName="series" iconName="navTVSeriesIcon" />
+                    <NavbarSectionIcon sectionName="series" name="navTVSeriesIcon" />
                 </li>
                 <li>
-                    <NavbarSectionIcon sectionName="bookmarked" iconName="navBookmarkIcon" />
+                    <NavbarSectionIcon sectionName="bookmarked" name="navBookmarkIcon" />
                 </li>
             </ul>
             <img src={userImage} alt="user" className="nav__user-img" />

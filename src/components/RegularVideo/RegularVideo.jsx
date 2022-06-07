@@ -1,27 +1,40 @@
 import "../../styles/RegularVideo.css"
 import Icon from "../Icon/index.js";
-import BookmarkIcon from "../BookmarkIcon/index.js";
+import { useAppProvider } from "../../context/AppContext";
 
 const RegularVideo = ({ videoData }) => {
+    const { toggleBookmark } = useAppProvider();
+    const handleBookmarkClick = () => {
+        toggleBookmark(videoData);
+    }
+
     return (
-        <div className="regular-video" key={videoData.id}  >
+        <article className="regular-video">
             <div
                 className="regular-video__thumbnail-cont"
                 style={{
                     backgroundImage: `url(${videoData.thumbnail.regular.small})`
                 }}
             >
-                <BookmarkIcon alreadyBookmarked={videoData.isBookmarked} videoData={videoData} />
+                <div
+                    className="video__bookmark-icon-cont"
+                    onClick={handleBookmarkClick}
+                >
+                    <Icon
+                        className={"video__bookmark-icon"}
+                        name={videoData.isBookmarked ? "fullBookmarkIcon" : "emptyBookmarkIcon"}
+                    />
+                </div>
                 <a
                     href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
                     target="_blank"
                     rel="noreferrer"
                     className="regular-video__play-cont"
                 >
-                    <Icon iconName="playIcon" iconClassName="regular-video__play-icon" />
+                    <Icon name="playIcon" className="regular-video__play-icon" />
                     <p>Play</p>
                 </a>
-                <div className="regular-video__thumbnail-cont__overlay"></div>
+                <div className="thumbnail-cont__overlay"></div>
             </div>
             <div className="regular-video__info">
                 <div className="regular-video__details">
@@ -29,8 +42,8 @@ const RegularVideo = ({ videoData }) => {
                     <ul className="regular-video__specs">
                         <li className="regular-video__spec" >
                             <Icon
-                                iconName={false ? "tVCategoryIcon" : "movieCategoryIcon" }
-                                iconClassName="regular-video__category-icon"
+                                name={false ? "tVCategoryIcon" : "movieCategoryIcon" }
+                                className="regular-video__category-icon"
                             />
                             {videoData.category}
                         </li>
@@ -41,7 +54,7 @@ const RegularVideo = ({ videoData }) => {
                 </div>
                 <p className="regular-video__title" >{videoData.title}</p>
             </div>
-        </div>
+        </article>
     )
 }
 
