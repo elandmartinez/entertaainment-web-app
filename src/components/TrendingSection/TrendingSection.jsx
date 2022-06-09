@@ -1,10 +1,10 @@
 import "../../styles/TrendingSection.css";
 import TrendingVideo from '../TrendingVideo/index.js';
 import SectionTitle from "../SectionTitle/index.js";
-import { useAppProvider } from "../../context/AppContext";
+import { useOutletContext } from 'react-router-dom';
 
 const TrendingSection = () => {
-    const { videos } = useAppProvider();
+    const videos = useOutletContext();
     const trending = videos.filter(video => video.isTrending === true)
 
     return (

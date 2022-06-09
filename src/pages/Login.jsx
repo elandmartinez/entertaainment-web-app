@@ -7,15 +7,20 @@ import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import {loginInputNames, loginInputsInitialValues} from "../utils/constants.js";
 import { loginSchema } from "../utils/formSchema.js";
-import { useAppProvider } from "../context/AppContext.js";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSignUpActions as loginActions } from "../store/login-signUp-slice.js";
+import { sessionsActions } from "../store/sessions-slice.js";
 
 const Login  = () => {
-    const { showLoginErrorMsg, setShowLoginErrorMsg, updateIsAUserLogged } = useAppProvider();
     const navigateTo = useNavigate();
-
+    const dispatch = useDispatch();
+    const loginErrors = useSelector(state => state.loginSignUp.loginErrors);
     useEffect(() => {
-        setShowLoginErrorMsg({ show: false, msg: ""});
-    }, [setShowLoginErrorMsg]);
+        dispatch(loginActions.setLoginErrors({
+            show: false,
+            msg: ""
+        }));
+    }, [dispatch]);
 
     return (
         <div className="login">
@@ -26,20 +31,20 @@ const Login  = () => {
                 onSubmit={(loginInfo, actions) => {
                     let userHasAnAccount = userHasAccount(loginInfo);
                     if(userHasAnAccount.error) {
-                        setShowLoginErrorMsg({
+                        dispatch(loginActions.setLoginErrors({
                             show: true,
                             msg: userHasAnAccount.errorMsg,
-                        })
+                        }));
                         actions.setSubmitting(false);
                     } else {
-                        updateIsAUserLogged(true);
+                        dispatch(sessionsActions.updateIsAnAccountLogged(true));
                         navigateTo("/");
                     }
                 }}
             >
                 {({ isSubmitting, handleSubmit }) => (
                     <form className="login__form" onSubmit={handleSubmit}>
-                        { showLoginErrorMsg.show ? <LoginError errorMsg={showLoginErrorMsg.msg} /> : null }
+                        { loginErrors.show ? <LoginError errorMsg={loginErrors.msg} /> : null }
                         <h1>Log In</h1>
                         <div className="login__input-cont">
                             <Field

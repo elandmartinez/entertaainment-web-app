@@ -2,10 +2,10 @@ import "../styles/InitialPage.css";
 import Navbar from "../components/Navbar/index.js";
 import VideoSearcher from "../components/VideoSearcher/index.js";
 import { Outlet, useLocation } from "react-router-dom";
-import { useAppProvider } from "../context/AppContext";
+import { useSelector } from "react-redux";
 
 const Layout = () => {
-    const { videos } = useAppProvider();
+    const videos = useSelector(state => state.videos.videosList);
     const location = useLocation();
     let videoSearcherPlaceHolder = "Search for ";
     let catalogToSearchIn;

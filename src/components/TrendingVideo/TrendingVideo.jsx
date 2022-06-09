@@ -1,11 +1,12 @@
 import "../../styles/TrendingVideo.css";
 import Icon from "../Icon/index.js";
-import { useAppProvider } from "../../context/AppContext";
+import { useDispatch } from "react-redux";
+import { videosActions } from "../../store/videos-slice";
 
 const TrendingVideo = ({ videoData }) => {
-    const { toggleBookmark } = useAppProvider();
+    const dispatch = useDispatch();
     const handleBookmarkClick = (e) => {
-        toggleBookmark(videoData)
+        dispatch(videosActions.toggleBookmark(videoData));
     }
 
     return (

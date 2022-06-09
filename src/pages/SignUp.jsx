@@ -8,21 +8,20 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Link, useNavigate } from "react-router-dom";
 import {signUpInputNames, signUpInputsInitialValues } from "../utils/constants.js";
 import { signUpSchema } from "../utils/formSchema.js";
-import { useAppProvider } from "../context/AppContext";
+import { useSelector, useDispatch } from "react-redux";
+import { sessionsActions } from "../store/sessions-slice";
+import { loginSignUpActions as signUpActions } from "../store/login-signUp-slice";
 
 const SignUp = () => {
-    const {
-        updateSessions,
-        showSignUpErrorMsg,
-        setShowSignUpErrorMsg,
-        passwordNotRepeatedError,
-        setPasswordNotRepeatedError,
-        saveLogged,
-    }  = useAppProvider();
+    const dispatch = useDispatch();
+    const signUpErrors = useSelector(state => state.loginSignUp.signUpErrors);
     const navigateTo = useNavigate();
     useEffect(() => {
-        setShowSignUpErrorMsg({ show: false, existingPart: ""});
-    }, [setShowSignUpErrorMsg]);
+        dispatch(signUpActions.setSignUpErrors({
+            passwordNotRepeated: false,
+            accountAlreadyExist: { show: false, existingPart: ""}
+        }));
+    }, [dispatch]);
 
     return (
         <div className="sign-up">
@@ -30,37 +29,45 @@ const SignUp = () => {
             <Formik
                 initialValues={signUpInputsInitialValues}
                 validationSchema={signUpSchema}
-                onSubmit={(signInInfo) => {
+                onSubmit={(signInInfo, actions) => {
                     let passwordRepeatedCorrectly = signInInfo.password === signInInfo.repeatPassword;
                     if(passwordRepeatedCorrectly) {
                         let isANewUser = isANewAccount(signInInfo);
                         if(isANewUser.error) {
-                            console.log("failure");
-                            setShowSignUpErrorMsg({
-                                show: true,
-                                invalidParameter: `${isANewUser.invalidParameter}`,
-                            })
+                            dispatch(signUpActions.setSignUpErrors({
+                                ...signUpErrors,
+                                accountAlreadyExist: {
+                                    show: true,
+                                    invalidParameter: `${isANewUser.invalidParameter}`,
+                                }
+                            }))
+                            actions.setSubmitting(false);
                         } else {
                             let newSession = {
                                 email: signInInfo.email,
                                 password: signInInfo.password,
                             }
-                            updateSessions(newSession)
-                            console.log("success");
+                            dispatch(sessionsActions.addNewAccount(newSession))
+                            dispatch(sessionsActions.updateIsAnAccountLogged(true));
                             navigateTo("/");
-                            saveLogged(true);
                         }
                     } else {
-                        setPasswordNotRepeatedError(true);
-                        console.log("password not repeated correctly");
+                        dispatch(signUpActions.setSignUpErrors({
+                            ...signUpErrors,
+                            passwordNotRepeated: true
+                        }))
+                        actions.setSubmitting(false);
                     }
-                    console.log(passwordNotRepeatedError);
                 }}
             >
                 {({ isSubmitting }) => (
                     <Form className="sign-up__form" >
-                        { showSignUpErrorMsg.show ? <SignUpError invalidParameter={showSignUpErrorMsg.invalidParameter} /> : null }
-                        { passwordNotRepeatedError ?  <PasswordNotRepeated /> : null}
+                        { signUpErrors.accountAlreadyExist.show ?
+                            <SignUpError invalidParameter={signUpErrors.accountAlreadyExist.invalidParameter} />
+                            :
+                            null
+                        }
+                        { signUpErrors.passwordNotRepeated ?  <PasswordNotRepeated /> : null}
                         <h1>Sign Up</h1>
                         <div className="sign-up__input-cont" >
                             <Field
