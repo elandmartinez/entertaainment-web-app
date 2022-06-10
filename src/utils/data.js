@@ -583,7 +583,7 @@ const data = [
       "isTrending": false
     }
 ]
-let storageBookmarkedVideos = JSON.parse(localStorage.getItem("bookmarked-videos"));
+let storageBookmarkedVideos = JSON.parse(localStorage.getItem("bookmarkedVideos"));
 
 
 export const initialData = data

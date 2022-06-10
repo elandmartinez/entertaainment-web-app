@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 export const userHasAccount = (sessionToSearch) => {
     let storageSessions = JSON.parse(localStorage.getItem("sessions")) || [];
     let sessionExist = storageSessions.some((session) => {

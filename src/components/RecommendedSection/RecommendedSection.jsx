@@ -1,23 +1,15 @@
 import "../../styles/RecommendedSection.css";
 import Thumbnails from "../Thumbnails/index.js";
 import SectionTitle from "../SectionTitle/index.js";
-import { useAppProvider } from "../../context/AppContext";
-import { useRef, useEffect } from "react";
+import { useOutletContext } from 'react-router-dom';
 
 const RecommendedSection = () => {
-    const trialObj = useRef({counter: 0, isDirty: false});
-    const { videos } = useAppProvider();
+    const videos = useOutletContext();
     const noTrendingVideos = videos.filter(video => {
         return video.isTrending === false
     })
-    useEffect(() => {
-        console.log(trialObj);
-    }, [])
     return (
-        <div className="recommended-section" onClick={() => {
-            trialObj.current.counter += 1;
-            trialObj.current.isDirty = true;
-        }}>
+        <div className="recommended-section">
             <SectionTitle>Recommended for you</SectionTitle>
             <Thumbnails videos={noTrendingVideos} />
         </div>

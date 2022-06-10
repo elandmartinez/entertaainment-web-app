@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
-import {AppProvider} from "./context/AppContext.js";
+import { Provider } from "react-redux";
+import { store as appState } from "./store/index.js";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
-    <AppProvider>
+    <Provider store={appState}>
       <App />
-    </AppProvider>
+    </Provider>
   </Router>
 );
