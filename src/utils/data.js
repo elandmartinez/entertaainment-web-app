@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import beyondEarthTrendingSmallImg from "../assets/thumbnails/beyond-earth/trending/small.jpg"
 import beyondEarthTrendingLargeImg from "../assets/thumbnails/beyond-earth/trending/large.jpg"
 import beyondEarthRegularSmallImg from "../assets/thumbnails/beyond-earth/regular/small.jpg"
@@ -125,6 +123,8 @@ import unresolvedCasesRegularLargeImg from "../assets/thumbnails/unresolved-case
 import missionSaturnRegularSmallImg from "../assets/thumbnails/mission-saturn/regular/small.jpg"
 import missionSaturnRegularMediumImg from "../assets/thumbnails/mission-saturn/regular/medium.jpg"
 import missionSaturnRegularLargeImg from "../assets/thumbnails/mission-saturn/regular/large.jpg"
+
+import { v4 as uuidv4 } from 'uuid';
 
 const data = [
     {
@@ -583,8 +583,7 @@ const data = [
       "isTrending": false
     }
 ]
-let storageBookmarkedVideos = JSON.parse(localStorage.getItem("bookmarkedVideos"));
-
+export const storageBookmarkedVideos = JSON.parse(localStorage.getItem("bookmarkedVideos"));
 
 export const initialData = data
     .map((video, index) => {

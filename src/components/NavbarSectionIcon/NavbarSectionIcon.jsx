@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
 import Icon from "../Icon/index.js";
+import { NavLink } from "react-router-dom";
 
 const NavbarSectionIcon = ({ sectionName, name }) => {
 

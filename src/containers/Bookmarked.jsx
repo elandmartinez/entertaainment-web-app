@@ -6,12 +6,11 @@ import { useSelector } from "react-redux";
 const Bookmarked = () => {
     const bookmarkedVideos = useSelector(state => state.videos.videosList).filter(video => video.isBookmarked === true);
     const tVSeriesCatalogue = bookmarkedVideos.filter(video => {
-        return video.isBookmarked === true && video.category === "TV Series"
+        return video.category === "TV Series"
     })
     const moviesCatalogue = bookmarkedVideos.filter(video => {
-        return video.isBookmarked === true && video.category === "Movie"
+        return video.category === "Movie"
     })
-    console.log(moviesCatalogue, tVSeriesCatalogue);
 
     return (
         <main className="bookmarked-section">

@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { getStoredState } from "redux-persist";
 
 export const userHasAccount = (sessionToSearch) => {
-    let storageSessions = JSON.parse(localStorage.getItem("sessions")) || [];
+    let storageSessions = JSON.parse(localStorage.getItem("accounts")) || [];
     let sessionExist = storageSessions.some((session) => {
         return session.email === sessionToSearch.email && session.password === sessionToSearch.password
     })
@@ -10,7 +10,7 @@ export const userHasAccount = (sessionToSearch) => {
 }
 
 export const isANewAccount = (sessionToSearch) => {
-    let storageSessions = JSON.parse(localStorage.getItem("sessions")) || [];
+    let storageSessions = JSON.parse(localStorage.getItem("accounts")) || [];
     const emailFailureCase = { existingPart: "email" };
     const passwordFailureCase = { existingPart:"password" };
 
@@ -21,4 +21,18 @@ export const isANewAccount = (sessionToSearch) => {
     })
     if(sessionFailureParameter) return { error: true , invalidParameter: sessionFailureParameter.existingPart}
     return { error: false, invalidParameter: ""}
+}
+
+export const parsePersistedStore = (stringifiedStore) => {
+    let parsedStore = {}
+    for (let prop in stringifiedStore) {
+        if(prop === "_persist") return
+        parsedStore[prop] = JSON.parse(stringifiedStore[prop])
+    }
+    return parsedStore
+}
+
+export const getPersistedState = async (persistConfiguration) => {
+    let persistedState = await getStoredState(persistConfiguration);
+    return persistedState
 }

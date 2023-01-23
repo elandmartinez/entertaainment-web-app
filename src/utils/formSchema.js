@@ -19,7 +19,7 @@ export const loginSchema = () => Yup.object().shape({
         .email("invalid email address!")
         .required("Required!"),
     password: Yup.string()
-        .min(6, "too short!")
+        .min(8, "too short!")
         .max(20, "too long!")
         .required("Required!")
 });

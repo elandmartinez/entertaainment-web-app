@@ -1,22 +1,21 @@
+import "../styles/Login.css";
 import Icon from "../components/Icon/index.js";
 import LoginError from "../components/LoginError/index.js";
 import { useEffect } from "react";
 import { userHasAccount } from "../utils/helpers.js";
 import { Formik, Field, ErrorMessage } from 'formik';
-import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import {loginInputNames, loginInputsInitialValues} from "../utils/constants.js";
+import { loginInputNames, loginInputsInitialValues} from "../utils/constants.js";
 import { loginSchema } from "../utils/formSchema.js";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSignUpActions as loginActions } from "../store/login-signUp-slice.js";
-import { sessionsActions } from "../store/sessions-slice.js";
+import { authActions} from "../store/auth-slice.js";
 
 const Login  = () => {
     const navigateTo = useNavigate();
     const dispatch = useDispatch();
-    const loginErrors = useSelector(state => state.loginSignUp.loginErrors);
+    const loginErrors = useSelector(state => state.auth.loginErrors);
     useEffect(() => {
-        dispatch(loginActions.setLoginErrors({
+        dispatch(authActions.setLoginErrors({
             show: false,
             msg: ""
         }));
@@ -31,13 +30,13 @@ const Login  = () => {
                 onSubmit={(loginInfo, actions) => {
                     let userHasAnAccount = userHasAccount(loginInfo);
                     if(userHasAnAccount.error) {
-                        dispatch(loginActions.setLoginErrors({
+                        dispatch(authActions.setLoginErrors({
                             show: true,
                             msg: userHasAnAccount.errorMsg,
                         }));
                         actions.setSubmitting(false);
                     } else {
-                        dispatch(sessionsActions.updateIsAnAccountLogged(true));
+                        dispatch(authActions.updateIsAnAccountLogged(true));
                         navigateTo("/");
                     }
                 }}

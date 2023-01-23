@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialData } from "../utils/data.js";
+import { initialData, storageBookmarkedVideos } from "../utils/data.js";
 
-export const videosSlice = createSlice({
+export const videos = createSlice({
     name: "videos",
     initialState: {
         videosList: initialData,
+        bookmarkedVideos: storageBookmarkedVideos || [],
         changed: false
     },
     reducers: {
@@ -16,9 +17,9 @@ export const videosSlice = createSlice({
                 return objToReturn;
             })
             const updatedBookmarks = state.videosList.filter(video => video.isBookmarked === true)
-            localStorage.setItem("bookmarkedVideos", JSON.stringify(updatedBookmarks));
+            state.bookmarkedVideos = updatedBookmarks;
         }
     }
 })
 
-export const videosActions = videosSlice.actions
+export const videosActions = videos.actions

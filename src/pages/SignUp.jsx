@@ -9,15 +9,15 @@ import { Link, useNavigate } from "react-router-dom";
 import {signUpInputNames, signUpInputsInitialValues } from "../utils/constants.js";
 import { signUpSchema } from "../utils/formSchema.js";
 import { useSelector, useDispatch } from "react-redux";
-import { sessionsActions } from "../store/sessions-slice";
-import { loginSignUpActions as signUpActions } from "../store/login-signUp-slice";
+import { usersActions } from "../store/users-slice";
+import { authActions } from "../store/auth-slice";
 
 const SignUp = () => {
     const dispatch = useDispatch();
-    const signUpErrors = useSelector(state => state.loginSignUp.signUpErrors);
+    const signUpErrors = useSelector(state => state.auth.signUpErrors);
     const navigateTo = useNavigate();
     useEffect(() => {
-        dispatch(signUpActions.setSignUpErrors({
+        dispatch(authActions.setSignUpErrors({
             passwordNotRepeated: false,
             accountAlreadyExist: { show: false, existingPart: ""}
         }));
@@ -34,7 +34,7 @@ const SignUp = () => {
                     if(passwordRepeatedCorrectly) {
                         let isANewUser = isANewAccount(signInInfo);
                         if(isANewUser.error) {
-                            dispatch(signUpActions.setSignUpErrors({
+                            dispatch(authActions.setSignUpErrors({
                                 ...signUpErrors,
                                 accountAlreadyExist: {
                                     show: true,
@@ -47,12 +47,12 @@ const SignUp = () => {
                                 email: signInInfo.email,
                                 password: signInInfo.password,
                             }
-                            dispatch(sessionsActions.addNewAccount(newSession))
-                            dispatch(sessionsActions.updateIsAnAccountLogged(true));
+                            dispatch(usersActions.addNewAccount(newSession))
+                            dispatch(authActions.updateIsAnAccountLogged(true));
                             navigateTo("/");
                         }
                     } else {
-                        dispatch(signUpActions.setSignUpErrors({
+                        dispatch(authActions.setSignUpErrors({
                             ...signUpErrors,
                             passwordNotRepeated: true
                         }))
