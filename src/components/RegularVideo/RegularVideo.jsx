@@ -26,8 +26,7 @@ const RegularVideo = ({ videoData }) => {
                     />
                 </div>
                 <a
-                    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
-                    target="_blank"
+                    href="/"
                     rel="noreferrer"
                     className="regular-video__play-cont"
                 >

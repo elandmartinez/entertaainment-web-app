@@ -27,7 +27,6 @@ const icons = {
 const Icon = ({ name, className }) => {
     const IconToLoad = icons[name];
     if(!IconToLoad) {
-        console.log(name);
         throw new Error(`you wrote a non-existing icon, the ones available are: ${icons}`)
     }
 

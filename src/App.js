@@ -10,16 +10,6 @@ import SearchingResults from "./components/SearchingResults/index.js";
 import { useAppProvider } from "./context/AppContext";
 import { useSearchParams } from "react-router-dom";
 
-
-/*
-    todo:
-        * checkout the styles that seem to be affected when using hover: done
-        * changed the show time of the play button in thumbnails: done
-        * cleaned and re-strutured a bit the styles of RegularVideo and TrendingVideo: done
-        * checkout variables, files and components names and improve them: done (not much to do)
-        * fix the border-bottom line at the home, it seems that it slipped up: done
-*/
-
 const App = () => {
     const { isAUserLogged } = useAppProvider();
     const [params, setParams] = useSearchParams();

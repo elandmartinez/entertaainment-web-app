@@ -41,8 +41,7 @@ const TrendingVideo = ({ videoData }) => {
             <p className="trending-video__title" >{videoData.title}</p>
             <div className="trending-video__overlay"></div>
             <a
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
-                target="_blank"
+                href="/"
                 rel="noreferrer"
                 className="trending-video__play-cont"
             >

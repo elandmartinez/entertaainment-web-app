@@ -10,9 +10,6 @@ const RecommendedSection = () => {
     const noTrendingVideos = videos.filter(video => {
         return video.isTrending === false
     })
-    useEffect(() => {
-        console.log(trialObj);
-    }, [])
     return (
         <div className="recommended-section" onClick={() => {
             trialObj.current.counter += 1;

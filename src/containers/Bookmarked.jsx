@@ -5,22 +5,21 @@ import { useAppProvider } from "../context/AppContext.js";
 
 const Bookmarked = () => {
     const { videos } = useAppProvider();
-    const tVSeriesCatalogue = videos.filter(video => {
+    const TVSeriesCatalogue = videos.filter(video => {
         return video.isBookmarked === true && video.category === "TV Series"
     })
     const moviesCatalogue = videos.filter(video => {
         return video.isBookmarked === true && video.category === "Movie"
     })
-
     return (
         <main className="bookmarked-section">
             <div className="bookmarked-catalogue">
                 <SectionTitle>Bookmarked TV Series</SectionTitle>
-                <Thumbnails thumbnailsToRender={tVSeriesCatalogue} />
+                <Thumbnails videos={TVSeriesCatalogue} />
             </div>
             <div className="bookmarked-catalogue">
                 <SectionTitle>Bookmarked Movies</SectionTitle>
-                <Thumbnails thumbnailsToRender={moviesCatalogue} />
+                <Thumbnails videos={moviesCatalogue} />
             </div>
         </main>
     )

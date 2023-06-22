@@ -35,7 +35,7 @@ const SignUp = () => {
                     if(passwordRepeatedCorrectly) {
                         let isANewUser = isANewAccount(signInInfo);
                         if(isANewUser.error) {
-                            console.log("failure");
+                            console.log("failure signing up, this user alreeady exist");
                             setShowSignUpErrorMsg({
                                 show: true,
                                 invalidParameter: `${isANewUser.invalidParameter}`,
@@ -46,7 +46,7 @@ const SignUp = () => {
                                 password: signInInfo.password,
                             }
                             updateSessions(newSession)
-                            console.log("success");
+                            console.log("success, signing up");
                             navigateTo("/");
                             saveLogged(true);
                         }

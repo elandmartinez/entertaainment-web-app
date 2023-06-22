@@ -579,7 +579,7 @@ const data = [
       "year": 2017,
       "category": "Movie",
       "rating": "PG",
-      "isBookmarked": false,
+      "isBookmarked": true,
       "isTrending": false
     }
 ]
@@ -606,6 +606,8 @@ export const initialData = data
     }
     if(bookmarkedVideo) {
       newBookmarkedValue = true
+    } else {
+      newBookmarkedValue = false
     }
     return {
       ...video,
